@@ -1,0 +1,141 @@
+.main{
+    margin: 0;
+}
+
+
+
+.mainContent{
+    margin-left: 250px;
+    width: calc(100% - 250px);
+}
+.home{
+    height: 100vh;
+    background-color: pink;
+    
+}
+.products{
+    height: 100vh;
+    background-color: purple;
+}
+.yarn{
+    height: 100vh;
+    background-color: orange;
+}
+.materials{
+    height: 100vh;
+    background-color: green;
+}
+.settings{
+    height: 100vh;
+    background-color: blue;
+}
+/* --------------  Nav Bar   ---------------------------------------------- */
+
+.navBar{
+    position: fixed;
+    height: 100vh;
+    width: 250px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 10px;
+    background-color: rgba(128, 0, 128, 0.415);
+}
+
+.navBar .heading{
+    font-size: 30px;
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-bottom: 25px;
+  margin: 0;
+   color:  rgb(128, 0, 128);
+   background-color: white;
+   
+}
+
+.navLinks{
+    font-size: 30px;
+    padding-top: 100px;
+}
+
+.navLinks a {
+    text-decoration: none;
+    color: white;
+}
+
+.homeButton h4 {
+    margin: 0px;
+    padding-left: 25px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    
+}
+.productsButton h4 {
+    margin: 0px;
+    padding-left: 25px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    
+}
+.yarnButton h4 {
+    margin: 0px;
+    padding-left: 25px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    
+}
+.materialsButton h4 {
+    margin: 0px;
+    padding-left: 25px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    
+}
+.settingsButton h4 {
+    margin: 0px;
+    padding-left: 25px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    
+}
+
+.homeButton:hover{
+    background-color: rgba(128, 0, 128, 0.797);
+ 
+}
+
+.yarnButton:hover{
+    background-color: rgba(128, 0, 128, 0.797);
+ 
+}
+
+.productsButton:hover{
+    background-color: rgba(128, 0, 128, 0.797);
+ 
+}
+
+.materialsButton:hover{
+    background-color: rgba(128, 0, 128, 0.797);
+ 
+}
+
+.settingsButton:hover{
+    background-color: rgba(128, 0, 128, 0.797);
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
