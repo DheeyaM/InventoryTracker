@@ -1,5 +1,7 @@
-.main{
+ body{
     margin: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+
 }
 
 
@@ -15,7 +17,7 @@
 }
 .products{
     height: 100vh;
-    background-color: purple;
+   
 }
 .yarn{
     height: 100vh;
@@ -55,7 +57,7 @@
 
 .navLinks{
     font-size: 30px;
-    padding-top: 100px;
+    padding-top: 50px;
 }
 
 .navLinks a {
@@ -68,6 +70,9 @@
     padding-left: 25px;
     padding-top: 7px;
     padding-bottom: 7px;
+     font-size: 22.36px;
+    line-height: 1.6;
+    
     
 }
 .productsButton h4 {
@@ -75,6 +80,9 @@
     padding-left: 25px;
     padding-top: 7px;
     padding-bottom: 7px;
+     font-size: 22.36px;
+    line-height: 1.6;
+    
     
 }
 .yarnButton h4 {
@@ -82,6 +90,9 @@
     padding-left: 25px;
     padding-top: 7px;
     padding-bottom: 7px;
+     font-size: 22.36px;
+    line-height: 1.6;
+    
     
 }
 .materialsButton h4 {
@@ -89,6 +100,9 @@
     padding-left: 25px;
     padding-top: 7px;
     padding-bottom: 7px;
+     font-size: 22.36px;
+    line-height: 1.6;
+    
     
 }
 .settingsButton h4 {
@@ -96,36 +110,155 @@
     padding-left: 25px;
     padding-top: 7px;
     padding-bottom: 7px;
+    font-size: 22.36px;
+    line-height: 1.6;
     
 }
 
 .homeButton:hover{
     background-color: rgba(128, 0, 128, 0.797);
- 
+  border-radius: 10px;
 }
 
 .yarnButton:hover{
     background-color: rgba(128, 0, 128, 0.797);
- 
+  border-radius: 10px;
 }
 
 .productsButton:hover{
     background-color: rgba(128, 0, 128, 0.797);
- 
+  border-radius: 10px;
 }
 
 .materialsButton:hover{
     background-color: rgba(128, 0, 128, 0.797);
- 
+  border-radius: 10px;
 }
 
 .settingsButton:hover{
     background-color: rgba(128, 0, 128, 0.797);
- 
+ border-radius: 10px;
 }
 
+/* --------------------Products page--------------------- */
+.products h3{
+   font-size: 45px;
+   line-height: 1.55;
+   padding-left: 80px;
+   padding-top: 75px;
+  }
+
+  #searchBar{
+    width: 250px;
+    position: relative;
+    left: 300px;
+     bottom:  80px;
+     height: 25px;
+  }
+  #filters{
+    position: relative;
+    bottom: 80px;
+    left: 315px;
+    width: 200px;
+     height: 25px;
+  }
+
+  #addProduct{
+     position: relative;
+    bottom: 65px;
+    left: 650px;
+    width: 100px;
+    height: 50px;
+  }
+
+  #categoryType{
+ position: relative;
+     left: 570px;
+    bottom: 50px;
+     width: 150px;
+    height: 25px;
+  }
+
+  #yarnNeeded{
+
+ position: relative;
+    left: 580px;
+    bottom: 50px;
+    width: 150px;
+    height: 25px;
+  }
+
+#addColour{
+
+ position: relative;
+    left: 590px;
+    bottom: 50px;
+    width: 100px;
+    height: 25px;
+  }
+
+  #productName{
+    position: relative;
+    left: 560px;
+    bottom: 50px;
+     width:200px;
+    height: 20px;
+  }
+
+  .modal{
+    background-color: rgba(0, 0, 0, 0);
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: all 0.3s ease-in-out;
+    z-index: -1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
 
 
+  .modal.open {
+    opacity: 1;
+    z-index: 999;
+  }
+
+  .modal-inner{
+    background-color:   rgb(242, 137, 242);
+    border-radius: 5px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
+    padding: 15px 25px;
+    text-align: center;
+    width: 380px;
+  }
+
+  .modal-inner h2{
+    margin: 0;
+  }
+
+  .modal-inner p{
+    line-height: 24px;
+    margin: 10px 0;
+
+  }
+
+
+#openModal{
+  position: relative;
+  left: 175px;
+  bottom: 125px;
+   font-size: 30px; /* bigger icon */
+    /* padding: 10px; */
+    cursor: pointer;
+    border-radius: 1%;
+    border: 0;
+    background-color: rgba(240, 248, 255, 0);
+}
 
 
 

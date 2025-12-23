@@ -1,39 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inventory Tracker</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
- <div class="mainContent"> 
-<section id="home" class="home">Home</section>
-<section id="products" class="products" >Products</section>
-<section id="yarn" class="yarn">Yarn</section>
-<section id="materials" class="materials">Materials</section>
-<section id="settings" class="settings">Settings</section>
-</div>  
-<div class="navBar"> 
-    <h2 class="heading">@crochetby_dhee</h2>
-    <div class="navLinks">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="mainContent">
+        <!-- HOME -->
+      <section id="home" class="home">Home</section>
+
+
+      <!-- PRODUCTS -->
+      <section id="products" class="products">
+        <h3>Products</h3>
+        <!-- Search bar  -->
+        <input id="searchBar" type="text" placeholder="Search" />
+        <!-- Combo box for filter by -->
+        <select id="filters">
+          <option value="" disabled selected>Filter by</option>
+          <option value="clothing">Clothing</option>
+          <option value="amigurumi">Amigurumi</option>
+          <option value="acessories">Acessories</option>
+          <option value="flowers">Flowers</option>
+        </select>
+        <!-- Add product -->
+        <button id="addProduct">+ Add Product</button>
+        <br />
+        <input id="productName" placeholder="Product Name" type="text" />
+        <select id="categoryType">
+          <option value="" disabled selected>Category</option>
+          <option value="clothing">Clothing</option>
+          <option value="amigurumi">Amigurumi</option>
+          <option value="acessories">Acessories</option>
+          <option value="flowers">Flowers</option>
+        </select>
+        <select id="yarnNeeded">
+          <option value="" disabled selected>Yarn</option>
+          <option value="blue">Blue</option>
+          <option value="red">Red</option>
+          <option value="white">White</option>
+          <option value="green">Green</option>
+        </select>
+        <button id="addColour">+ Add Colour</button>
+        <button id="openModal"> ❓</button>
+        <div class="modal" id="modal">
+          <div class="modal-inner">
+<h2>How To:</h2>
+<p>Search:
+Type in the search box to find products instantly.
+<br>
+Filter:
+Use Filter by to show products from a specific category.
+<br>
+Add Product:
+Enter a name, choose a category, add all required yarn colours, then click Add Product.
+</p>
+<button id="closeModal">Close</button>
+          </div>
+        </div>
+
+         <ul id="colourList"></ul>
+      </section>
+     
+<!-- Product table -->
+
+
+
+
+
+
+
+
+     
+      <section id="yarn" class="yarn">Yarn</section>
+      <section id="materials" class="materials">Materials</section>
+      <section id="settings" class="settings">Settings</section>
+    </div>
+
+
+    <!-- Navigation bar -->
+    <div class="navBar">
+      <h2 class="heading">@crochetby_dhee</h2>
+      <div class="navLinks">
         <div class="homeButton">
-            <a href="#home"> <h4>Home</h4></a>
+          <a href="#home"> <h4>Home</h4></a>
         </div>
         <div class="productsButton">
-            <a href="#products"> <h4>Products</h4></a>
+          <a href="#products"> <h4>Products</h4></a>
         </div>
         <div class="yarnButton">
-            <a href="#yarn"> <h4>Yarn</h4></a>
+          <a href="#yarn"> <h4>Yarn</h4></a>
         </div>
         <div class="materialsButton">
-            <a href="#materials"> <h4>Materials</h4></a>
+          <a href="#materials"> <h4>Materials</h4></a>
         </div>
         <div class="settingsButton">
-            <a href="#settings"> <h4>Settings</h4></a>
+          <a href="#settings"> <h4>Settings</h4></a>
         </div>
-    
+      </div>
     </div>
-</div>
-</body>
+
+
+
+
+
+
+    <script src="script.js"></script>
+  </body>
 </html>
