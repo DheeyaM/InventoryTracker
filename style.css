@@ -251,8 +251,8 @@
 
 #openModal{
   position: relative;
-  left: 800px;
-  bottom: 180px;
+  left: 1025px;
+  bottom: 925px;
    font-size: 30px; /* bigger icon */
     /* padding: 10px; */
     cursor: pointer;
@@ -270,8 +270,9 @@
   min-width: 400px;
   border-radius: 20px;
   position: relative;
-  left: 100px;
+  left: 250px;
   width: 1000px;
+  /* bottom: 500px; */
 
 }
 
@@ -292,15 +293,16 @@
   max-height: 350px;
   overflow-y: auto;
   border: 1px solid #333;
-  width: 1000px;
-  margin-left: 100px;
+  width: 1250px;
   border: 0;
-  margin-bottom: 100px;
+  position: relative;
+  bottom: 450px;
+  left: 100px;
 }
 
 .addedColours{
   margin: 0;
-  width: 20px;
+  width: 60px;
   position: relative;
   left: 1150px;
 }

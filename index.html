@@ -26,14 +26,14 @@
           <option value="flowers">Flowers</option>
         </select>
         <!-- Add product -->
-        <button id="addProduct">+ Add Product</button>
+        <button id="addProduct" onclick="addProduct()"   >+ Add Product</button>
         <br />
         <input id="productName" placeholder="Product Name" type="text" />
         <select id="categoryType">
           <option value="" disabled selected>Category</option>
           <option value="clothing">Clothing</option>
           <option value="amigurumi">Amigurumi</option>
-          <option value="acessories">Acessories</option>
+          <option value="accessories">Accessories</option>
           <option value="flowers">Flowers</option>
         </select>
         <select id="yarnNeeded">
@@ -65,24 +65,33 @@ Enter a name, choose a category, add all required yarn colours, then click Add P
         </div>
 
          <ul id="colourList"></ul>
-
+<!-- Product table -->
          <div class="table-container">
-         <table class="productTable">
+         <table id="productTable" class="productTable">
+          <thead>
           <tr>
             <th>Product Name</th>
             <th>Category</th>
             <th>Colours</th>
           </tr>
+          </thead>
+          <tbody>
           <tr>
             <td>SpiderMan Beanie</td>
-            <td>Accesories</td>
+            <td>Accessories</td>
             <td>Red, Black, White</td>
           </tr>
+          <tr>
+            <td>SpiderMan Beanie</td>
+            <td>Accessories</td>
+            <td>Red, Black, White</td>
+          </tr>
+          </tbody>
          </table>
          </div>
       </section>
      
-<!-- Product table -->
+
 
 
 
