@@ -226,6 +226,7 @@
   .modal.open {
     opacity: 1;
     z-index: 999;
+   
   }
 
   .modal-inner{
@@ -250,8 +251,8 @@
 
 #openModal{
   position: relative;
-  left: 175px;
-  bottom: 125px;
+  left: 800px;
+  bottom: 180px;
    font-size: 30px; /* bigger icon */
     /* padding: 10px; */
     cursor: pointer;
@@ -261,7 +262,54 @@
 }
 
 
+/* Table */
+.productTable{
+  border-collapse: collapse;
+  margin: 0 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  border-radius: 20px;
+  position: relative;
+  left: 100px;
+  width: 1000px;
 
+}
+
+.productTable th{
+  background-color:  rgba(128, 0, 128, 0.686);
+  color: white;
+  text-align: left;
+  font-weight: bold;
+  
+}
+
+.productTable th,
+.productTable td {
+  padding: 12px 15px;
+}
+
+.table-container{
+  max-height: 350px;
+  overflow-y: auto;
+  border: 1px solid #333;
+  width: 1000px;
+  margin-left: 100px;
+  border: 0;
+  margin-bottom: 100px;
+}
+
+.addedColours{
+  margin: 0;
+  width: 20px;
+  position: relative;
+  left: 1150px;
+}
+
+.colour-display {
+  height: 40px;          /* adjust as needed */
+  overflow-y: auto;      /* scroll if text exceeds */
+  margin-bottom: 10px;
+}
 
 
 
