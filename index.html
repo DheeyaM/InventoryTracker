@@ -31,10 +31,10 @@
         <input id="productName" placeholder="Product Name" type="text" />
         <select id="categoryType">
           <option value="" disabled selected>Category</option>
-          <option value="clothing">Clothing</option>
-          <option value="amigurumi">Amigurumi</option>
-          <option value="accessories">Accessories</option>
-          <option value="flowers">Flowers</option>
+          <option value="Clothing">Clothing</option>
+          <option value="Amigurumi">Amigurumi</option>
+          <option value="Accessories">Accessories</option>
+          <option value="Flowers">Flowers</option>
         </select>
         <select id="yarnNeeded">
           <option value="" disabled selected>Yarn</option>
@@ -73,6 +73,7 @@ Enter a name, choose a category, add all required yarn colours, then click Add P
             <th>Product Name</th>
             <th>Category</th>
             <th>Colours</th>
+            <th>Edit</th>
           </tr>
           </thead>
           <tbody>
@@ -80,11 +81,7 @@ Enter a name, choose a category, add all required yarn colours, then click Add P
             <td>SpiderMan Beanie</td>
             <td>Accessories</td>
             <td>Red, Black, White</td>
-          </tr>
-          <tr>
-            <td>SpiderMan Beanie</td>
-            <td>Accessories</td>
-            <td>Red, Black, White</td>
+            <td class="editCol">  <button class="editBtn"> ✎</button></td>
           </tr>
           </tbody>
          </table>

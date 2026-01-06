@@ -64,6 +64,14 @@ function addProduct(){
         alert("Please enter a product name!");
         return;
     }
+
+
+    if (rowBeingEdited){
+        
+    }
+
+
+
     //get table body
     const tableBody = document.getElementById("productTable").querySelector("tbody");
 
@@ -74,14 +82,26 @@ function addProduct(){
     const prodNameCell = document.createElement("td");
     const categoryCell = document.createElement("td");
     const colourCell = document.createElement("td");
+    const editRow = document.createElement("td");
+    const editBtn = document.createElement("button");
+
+    
 
     prodNameCell.textContent = prodName;
     categoryCell.textContent = category;
     colourCell.textContent = colours.join(", ");
+    editBtn.textContent = "✎";
 
+    editBtn.classList.add("editBtn");
+
+
+    editRow.appendChild(editBtn);
     row.appendChild(prodNameCell);
     row.appendChild(categoryCell);
     row.appendChild(colourCell);
+    row.appendChild(editRow);
+
+    addedColours.innerText = "";
 
     tableBody.appendChild(row);
 
@@ -89,4 +109,21 @@ function addProduct(){
 }
 
 
+// Editing product entry
 
+let rowBeingEdited = null;
+
+function edit(button){
+    let row = button.closest('tr');
+
+    document.getElementById("productName").value = row.children[0].textContent;
+    document.getElementById("categoryType").value = row.children[1].textContent;
+   
+    colours = row.children[2].textContent ? row.children[2].textContent.split("; ") : [];
+
+    showColours();
+
+    document.getElementById("addProduct").textContent = "Save";
+
+
+}

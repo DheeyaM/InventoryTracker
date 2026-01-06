@@ -42,6 +42,7 @@
     bottom: 0;
     border-radius: 10px;
     background-color: rgba(128, 0, 128, 0.415);
+    z-index: 10000;
 }
 
 .navBar .heading{
@@ -252,7 +253,7 @@
 #openModal{
   position: relative;
   left: 1025px;
-  bottom: 925px;
+  bottom: 590px;
    font-size: 30px; /* bigger icon */
     /* padding: 10px; */
     cursor: pointer;
@@ -272,6 +273,7 @@
   position: relative;
   left: 250px;
   width: 1000px;
+ 
   /* bottom: 500px; */
 
 }
@@ -313,7 +315,11 @@
   margin-bottom: 10px;
 }
 
-
+.editBtn{
+  background-color: #33333300;
+  border: none;
+  cursor: pointer;
+}
 
 
 
