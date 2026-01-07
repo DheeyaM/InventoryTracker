@@ -67,7 +67,13 @@ function addProduct(){
 
 
     if (rowBeingEdited){
-        
+        rowBeingEdited.children[0].textContent = prodName;
+        rowBeingEdited.children[1].textContent = category;
+        rowBeingEdited.children[2].textContent = colours.join("; ");
+
+       exitEditMode();
+        return;
+
     }
 
 
@@ -94,6 +100,9 @@ function addProduct(){
 
     editBtn.classList.add("editBtn");
 
+    editBtn.addEventListener("click", () => edit(editBtn));
+
+
 
     editRow.appendChild(editBtn);
     row.appendChild(prodNameCell);
@@ -103,9 +112,12 @@ function addProduct(){
 
     addedColours.innerText = "";
 
+   
+
     tableBody.appendChild(row);
 
     document.getElementById("productName").value = "";
+    exitEditMode();
 }
 
 
@@ -115,6 +127,7 @@ let rowBeingEdited = null;
 
 function edit(button){
     let row = button.closest('tr');
+    rowBeingEdited = row;
 
     document.getElementById("productName").value = row.children[0].textContent;
     document.getElementById("categoryType").value = row.children[1].textContent;
@@ -124,6 +137,22 @@ function edit(button){
     showColours();
 
     document.getElementById("addProduct").textContent = "Save";
+    
 
 
 }
+
+function exitEditMode(){
+
+    rowBeingEdited = null;
+    
+    document.getElementById("productName").value = "";
+    document.getElementById("categoryType").value = "Category";
+    colours = [];
+    showColours();
+    document.getElementById("addProduct").textContent = "Add Product"
+
+}
+
+
+edit();
