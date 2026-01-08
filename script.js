@@ -69,7 +69,7 @@ function addProduct(){
     if (rowBeingEdited){
         rowBeingEdited.children[0].textContent = prodName;
         rowBeingEdited.children[1].textContent = category;
-        rowBeingEdited.children[2].textContent = colours.join("; ");
+        rowBeingEdited.children[2].textContent = colours.join(", ");
 
        exitEditMode();
         return;
@@ -155,4 +155,24 @@ function exitEditMode(){
 }
 
 
-edit();
+//edit();
+
+
+//adding an event listner for typing
+let searchInput = document.getElementById("searchBar");
+searchInput.addEventListener("input" , searchProducts);
+
+function searchProducts(){
+
+     console.log("search running"); 
+    const searchValue = document.getElementById("searchBar").value.toLowerCase();
+
+    const rows = document.querySelectorAll("#productTable tbody tr");
+
+    rows.forEach(row => {
+        const prodName = row.children[0].textContent.toLowerCase();
+
+        row.style.display = prodName.includes(searchValue) ? "" : "none";
+        
+    });
+}
