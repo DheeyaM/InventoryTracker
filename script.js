@@ -117,6 +117,7 @@ function addProduct(){
     tableBody.appendChild(row);
 
     document.getElementById("productName").value = "";
+    document.getElementById("categoryType").value = "Category";
     exitEditMode();
 }
 
@@ -175,4 +176,22 @@ function searchProducts(){
         row.style.display = prodName.includes(searchValue) ? "" : "none";
         
     });
+}
+//adding the filter by feature
+const selectCategory = document.getElementById("filters");
+selectCategory.addEventListener("change" , filterBy);
+
+function filterBy(){
+    const category = selectCategory.value;
+      const rows = document.querySelectorAll("#productTable tbody tr");
+
+      rows.forEach(row => {
+        const categorySelect = row.children[1].textContent;
+
+        if (category === "All" || categorySelect === category){
+            row.style.display = '';
+        } else {
+            row.style.display = "none";
+        }
+      })
 }
