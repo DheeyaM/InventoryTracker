@@ -252,8 +252,8 @@
 
 #openModal{
   position: relative;
-  left: 1025px;
-  bottom: 590px;
+  left: 800px;
+  bottom: 240px;
    font-size: 30px; /* bigger icon */
     /* padding: 10px; */
     cursor: pointer;
@@ -271,10 +271,9 @@
   min-width: 400px;
   border-radius: 20px;
   position: relative;
-  left: 250px;
-  width: 1000px;
+  left: 100px;
+  width: 900px;
  
-  /* bottom: 500px; */
 
 }
 
@@ -295,25 +294,30 @@
   max-height: 350px;
   overflow-y: auto;
   border: 1px solid #333;
-  width: 1250px;
+  width: 1000px;
   border: 0;
   position: relative;
-  bottom: 450px;
-  left: 100px;
+  bottom: 125px;
+  left: 20px;
+  
 }
 
-.addedColours{
+.addedColours {
+  height: 55px;           
+  overflow-y: auto;     
   margin: 0;
-  width: 60px;
+  width: 60px;          
   position: relative;
-  left: 1150px;
+  left: 1165px;
+  bottom: 55px;
 }
+
 
 .colour-display {
-  height: 40px;          /* adjust as needed */
-  overflow-y: auto;      /* scroll if text exceeds */
-  margin-bottom: 10px;
+  height: 40px;
+  overflow-y: auto;
 }
+
 
 .editBtn{
   background-color: #33333300;
