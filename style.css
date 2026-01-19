@@ -276,8 +276,6 @@ html {
   position: relative;
   left: 100px;
   width: 900px;
- 
-
 }
 
 .productTable th{
@@ -332,10 +330,35 @@ html {
 
 /* ------------------------Yarn Page --------------------------- */
 
-.yarnTable td:third-child {
+#yarnTable td:third-child {
     padding-left: 10px; 
 }
 
+
+#yarnTable th{
+   background-color:  rgba(128, 0, 128, 0.308);
+  color: black;
+  text-align: left;
+  font-weight: bold;
+}
+
+#yarnTable{
+  border-collapse: collapse;
+  margin: 0 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  border-radius: 20px;
+  position: relative;
+  left: 100px;
+  width: 900px;
+}
+
+.yarn h2{
+    font-size: 45px;
+   line-height: 1.55;
+   padding-left: 80px;
+   padding-top: 75px;
+}
 
 
 
