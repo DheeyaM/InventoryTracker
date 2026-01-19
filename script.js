@@ -209,11 +209,43 @@ function renderYarnTable(){
 
   //For each syntax!!
   yarns.forEach((yarn) => {
+    
+// Buttons for amount col
+    const minusBtn = document.createElement("button");
+    minusBtn.textContent = "-0.25";
+    minusBtn.style.backgroundColor = "rgba(255, 0, 0, 0.25)";
+    minusBtn.style.border = "0";
+    minusBtn.style.cursor = "pointer";
+    const plusBtn = document.createElement("button");
+    plusBtn.textContent = "+0.25";
+    plusBtn.style.backgroundColor = "rgba(0, 128, 0, 0.25)";
+    plusBtn.style.border = "0";
+   plusBtn.style.cursor = "pointer";
+
+    minusBtn.addEventListener("click", () =>{
+      yarn.amount = Math.max(0, yarn.amount - 0.25).toFixed(2);
+      renderYarnTable();
+    })
+
+    plusBtn.addEventListener("click", () => {
+      yarn.amount = (parseFloat(yarn.amount) + 0.25).toFixed(2);
+      renderYarnTable();
+    })
+    
     const row = document.createElement("tr");
     const colourCell = document.createElement("td");
+    colourCell.style.width = "300px";
     const amountCell = document.createElement("td");
+     amountCell.style.width = "300px";
+
+    const amountSpan = document.createElement("span");
+    amountSpan.classList.add("amount");
+    amountSpan.textContent = `${yarn.amount}`;
+
     colourCell.textContent = yarn.colour;
-    amountCell.textContent = yarn.amount;
+    amountCell.appendChild(minusBtn);
+    amountCell.appendChild(amountSpan);
+    amountCell.appendChild(plusBtn);
 
     row.appendChild(colourCell);
     row.appendChild(amountCell);
@@ -222,10 +254,12 @@ function renderYarnTable(){
     if (yarn.amount <= threshold){
       statusCell.textContent = "Low Stock!";
       statusCell.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+      statusCell.style.width = "275px";
     
     } else {
-      statusCell.textContent = "Ok!";
+      statusCell.textContent = "Ok";
       statusCell.style.backgroundColor = "rgba(0, 128, 0, 0.5)";
+      statusCell.style.width = "275px";
     }
 
     row.appendChild(statusCell);
@@ -233,9 +267,14 @@ function renderYarnTable(){
 
 
 
+
+
   });
 
 }
+
+
+
 
 renderYarnTable();
 
