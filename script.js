@@ -181,3 +181,72 @@ function filterBy() {
 }
 
 loadProducts();
+
+const yarns = [];
+const threshold = 0.5;
+
+yarns.push({
+  colour: "Wine Red",
+  amount: 0.5
+},
+{
+  colour: "Dark Green",
+  amount: 1
+},
+{
+  colour: "Red",
+  amount: 1
+})
+
+// console.log(yarns)
+
+const yarnTableBody = document.getElementById("yarnTableBody");
+
+ console.log(yarnTableBody);
+
+function renderYarnTable(){
+  yarnTableBody.innerHTML = "";
+
+  //For each syntax!!
+  yarns.forEach((yarn) => {
+    const row = document.createElement("tr");
+    const colourCell = document.createElement("td");
+    const amountCell = document.createElement("td");
+    colourCell.textContent = yarn.colour;
+    amountCell.textContent = yarn.amount;
+
+    row.appendChild(colourCell);
+    row.appendChild(amountCell);
+
+    const statusCell = document.createElement("td");
+    if (yarn.amount <= threshold){
+      statusCell.textContent = "Low Stock!";
+      statusCell.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+    
+    } else {
+      statusCell.textContent = "Ok!";
+      statusCell.style.backgroundColor = "rgba(0, 128, 0, 0.5)";
+    }
+
+    row.appendChild(statusCell);
+    yarnTableBody.appendChild(row);
+
+
+
+  });
+
+}
+
+renderYarnTable();
+
+
+
+
+
+
+
+
+
+
+
+

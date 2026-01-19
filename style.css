@@ -4,6 +4,9 @@
 
 }
 
+html {
+  scroll-behavior:  smooth;
+}
 
 
 .mainContent{
@@ -21,7 +24,7 @@
 }
 .yarn{
     height: 100vh;
-    background-color: orange;
+    
 }
 .materials{
     height: 100vh;
@@ -327,6 +330,11 @@
 
 
 
+/* ------------------------Yarn Page --------------------------- */
+
+.yarnTable td:third-child {
+    padding-left: 10px; 
+}
 
 
 
