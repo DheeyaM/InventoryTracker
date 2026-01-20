@@ -182,7 +182,7 @@ function filterBy() {
 
 loadProducts();
 
-const yarns = [];
+let yarns = [];
 const threshold = 0.5;
 
 yarns.push({
@@ -204,6 +204,18 @@ const yarnTableBody = document.getElementById("yarnTableBody");
 
  console.log(yarnTableBody);
 
+ function saveYarns(){
+  localStorage.setItem("yarns", JSON.stringify(yarns));
+ }
+
+ function loadYarns(){
+  const saved = localStorage.getItem("yarns");
+  if (saved){
+    yarns = JSON.parse(saved);
+  }
+  renderYarnTable();
+ }
+
 function renderYarnTable(){
   yarnTableBody.innerHTML = "";
 
@@ -224,11 +236,13 @@ function renderYarnTable(){
 
     minusBtn.addEventListener("click", () =>{
       yarn.amount = Math.max(0, yarn.amount - 0.25).toFixed(2);
+      saveYarns();
       renderYarnTable();
     })
 
     plusBtn.addEventListener("click", () => {
       yarn.amount = (parseFloat(yarn.amount) + 0.25).toFixed(2);
+      saveYarns();
       renderYarnTable();
     })
     
@@ -273,10 +287,7 @@ function renderYarnTable(){
 
 }
 
-
-
-
-renderYarnTable();
+loadYarns();
 
 
 
