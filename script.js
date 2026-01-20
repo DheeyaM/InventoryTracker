@@ -202,7 +202,7 @@ yarns.push({
 
 const yarnTableBody = document.getElementById("yarnTableBody");
 
- console.log(yarnTableBody);
+
 
  function saveYarns(){
   localStorage.setItem("yarns", JSON.stringify(yarns));
@@ -280,15 +280,95 @@ function renderYarnTable(){
     yarnTableBody.appendChild(row);
 
 
-
-
-
   });
 
 }
 
 loadYarns();
 
+let materials = [];
+let thresholdMaterial = 5;
+
+materials.push({
+  material: "Glue Sticks",
+  amount: 50
+},
+{
+  material: "Skewers",
+  amount: 40
+},
+{
+  material: "Key Rings",
+  amount: 20
+});
+
+
+
+const materialTableBody = document.getElementById("materialTableBody");
+function renderMaterialTable(){
+  materialTableBody.innerHTML = "";
+
+  materials.forEach((material) => {
+
+
+    // Buttons
+    const minusBtn = document.createElement("button");
+    minusBtn.textContent = "-1";
+    minusBtn.style.backgroundColor = "rgba(255, 0, 0, 0.25)";
+    minusBtn.style.border = "0";
+    minusBtn.style.cursor = "pointer";
+    const plusBtn = document.createElement("button");
+    plusBtn.textContent = "+1";
+    plusBtn.style.backgroundColor = "rgba(0, 128, 0, 0.25)";
+    plusBtn.style.border = "0";
+   plusBtn.style.cursor = "pointer";
+
+   minusBtn.addEventListener("click", () => {
+    material.amount = Math.max(0, material.amount - 1);
+    renderMaterialTable();
+   });
+
+
+   plusBtn.addEventListener("click", () => {
+    material.amount = material.amount + 1;
+    renderMaterialTable();
+   })
+
+ 
+    const row = document.createElement("tr");
+    const materialCell = document.createElement("td");
+    const amountCell = document.createElement("td");
+    materialCell.textContent = material.material;
+   
+
+      const amountSpan = document.createElement("span");
+      amountSpan.classList.add("amount");
+      amountSpan.textContent = `${material.amount}`;
+      amountCell.appendChild(minusBtn);
+      amountCell.appendChild(amountSpan);
+      amountCell.appendChild(plusBtn);
+
+
+    row.appendChild(materialCell);
+    row.appendChild(amountCell);
+       const statusCell = document.createElement("td");
+    if (material.amount < thresholdMaterial){
+      statusCell.textContent = "Low Stock!";
+      statusCell.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+      statusCell.style.width = "275px";
+    } else {
+      statusCell.textContent = "Ok";
+      statusCell.style.backgroundColor = "rgba(0, 128, 0, 0.5)";
+      statusCell.style.width = "275px";
+    }
+
+    row.appendChild(statusCell);
+    materialTableBody.appendChild(row);
+  })
+}
+
+
+renderMaterialTable();
 
 
 
