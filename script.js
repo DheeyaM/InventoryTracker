@@ -185,23 +185,17 @@ loadProducts();
 let yarns = [];
 const threshold = 0.5;
 
-yarns.push({
+ yarns.push({
   colour: "Wine Red",
   amount: 0.5
 },
 {
   colour: "Dark Green",
   amount: 1
-},
-{
-  colour: "Red",
-  amount: 1
-})
-
-// console.log(yarns)
+});
+ console.log(yarns)
 
 const yarnTableBody = document.getElementById("yarnTableBody");
-
 
 
  function saveYarns(){
@@ -218,9 +212,15 @@ const yarnTableBody = document.getElementById("yarnTableBody");
 
 function renderYarnTable(){
   yarnTableBody.innerHTML = "";
-
-  //For each syntax!!
+const select = document.getElementById("yarnNeeded");
+select.innerHTML = '<option value="" disabled selected>Yarn</option>'; 
   yarns.forEach((yarn) => {
+    const col = document.createElement("option");
+    col.textContent = yarn.colour;
+    col.value = yarn.colour;
+    select.appendChild(col);
+    // Adding the colours to the select
+    
     
 // Buttons for amount col
     const minusBtn = document.createElement("button");
@@ -283,9 +283,16 @@ function renderYarnTable(){
   });
 
 }
+function addyarn(colVar, amountVar){
+  yarns.push({colour: colVar, amount: amountVar});
+    saveYarns();        
+  renderYarnTable();  
+}
 
-loadYarns();
+addyarn("Purple", 0.5);
+addyarn("Pink", 1)
 
+//loadYarns();
 let materials = [];
 let thresholdMaterial = 5;
 
