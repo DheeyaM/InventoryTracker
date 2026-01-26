@@ -31,7 +31,7 @@ html {
 }
 .settings{
     height: 100vh;
-    background-color: blue;
+    
 }
 /* --------------  Nav Bar   ---------------------------------------------- */
 
@@ -335,10 +335,14 @@ html {
 
 
 #yarnTable th{
-   background-color:  rgba(128, 0, 128, 0.308);
-  color: black;
+   background-color:  rgba(128, 0, 128, 0.686);
+  color: white;
   text-align: left;
   font-weight: bold;
+}
+#yarnTable th,
+#yarnTable td {
+  padding: 12px 15px;
 }
 
 #yarnTable{
@@ -367,6 +371,24 @@ html {
   min-width: 30px;
 }
 
+/* default */
+button {
+  color: black;
+}
+
+/* dark mode */
+body.dark button {
+  color: white;
+}
+.btn-minus:hover {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+.btn-plus:hover {
+  background-color: rgba(0, 128, 0, 0.5);
+}
+
+
 
 /* -----------Material page-------------------- */
 
@@ -390,9 +412,32 @@ html {
 }
 
 #materialTable th{
-   background-color:  rgba(128, 0, 128, 0.308);
-  color: black;
+ background-color:  rgba(128, 0, 128, 0.686);
+  color: white;
   text-align: left;
   font-weight: bold;
+}
+#materialTable th,
+#materialTable td {
+  padding: 12px 15px;
+}
+
+/* ----------Settings page ------------------------ */
+
+body.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.dark {
+  background-color:  #000000;
+  color:  #ffffff;
+}
+
+.settings h2{
+    font-size: 45px;
+   line-height: 1.55;
+   padding-left: 80px;
+   padding-top: 75px;
 }
 

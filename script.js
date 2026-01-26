@@ -341,7 +341,9 @@ function renderMaterialTable(){
     renderMaterialTable();
    })
 
- 
+ minusBtn.classList.add("btn-minus");
+plusBtn.classList.add("btn-plus");
+
     const row = document.createElement("tr");
     const materialCell = document.createElement("td");
     const amountCell = document.createElement("td");
@@ -376,6 +378,47 @@ function renderMaterialTable(){
 
 
 renderMaterialTable();
+
+// -------------------Settings page ------------------
+
+let settings = {
+  theme: "light"
+};
+
+
+function saveSettings(){
+  localStorage.setItem("settings", JSON.stringify(settings));
+}
+
+function loadSettings(){
+  const saved = localStorage.getItem("settings");
+  console.log("RAW FROM STORAGE:", saved);
+  if (saved){
+    settings = JSON.parse(saved);
+  }
+  console.log("AFTER LOAD:", settings);
+}
+
+function applySettings(){
+  document.body.classList.remove("light", "dark");
+  document.body.classList.add(settings.theme);
+}
+
+let toggle = document.getElementById("toggleTheme");
+toggle.addEventListener("change", () => {
+
+  settings.theme = toggle.checked ? "dark" : "light";
+   console.log("SAVING:", settings);
+  applySettings();
+  saveSettings();
+});
+
+loadSettings();
+applySettings();
+
+toggle.checked = settings.theme === "dark";
+
+console.log(settings);
 
 
 
