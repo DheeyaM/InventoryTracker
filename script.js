@@ -1,58 +1,82 @@
 let products = [];
 let editIndex = null;
 
+const swatchMap = {
+  "Wine Red": "#722f37",
+  "Dark Green": "#2d6a4f",
+  "Purple": "#7b2d8b",
+  "Pink": "#e91e8c",
+};
 
-// Help button
+let settings = {
+  theme: "light",
+  yarnThreshold: 0.5,
+  materialThreshold: 5,
+};
+
+// ------------------- Settings -------------------
+
+function saveSettings() {
+  localStorage.setItem("settings", JSON.stringify(settings));
+}
+
+function loadSettings() {
+  const saved = localStorage.getItem("settings");
+  if (saved) {
+    settings = JSON.parse(saved);
+  }
+}
+
+function applySettings() {
+  document.body.classList.remove("light", "dark");
+  document.body.classList.add(settings.theme);
+}
+
+loadSettings();
+applySettings();
+
+let toggle = document.getElementById("toggleTheme");
+toggle.checked = settings.theme === "dark";
+toggle.addEventListener("change", () => {
+  settings.theme = toggle.checked ? "dark" : "light";
+  applySettings();
+  saveSettings();
+});
+
+const yarnThresholdInput = document.getElementById("yarnThresholdInput");
+const materialThresholdInput = document.getElementById("materialThresholdInput");
+
+function loadThresholdInputs() {
+  yarnThresholdInput.value = settings.yarnThreshold;
+  materialThresholdInput.value = settings.materialThreshold;
+}
+loadThresholdInputs();
+
+const saveThresholdsBtn = document.getElementById("saveThresholds");
+saveThresholdsBtn.addEventListener("click", () => {
+  const newYarnThreshold = parseFloat(yarnThresholdInput.value);
+  const newMaterialThreshold = parseInt(materialThresholdInput.value);
+
+  if (!isNaN(newYarnThreshold)) settings.yarnThreshold = newYarnThreshold;
+  if (!isNaN(newMaterialThreshold)) settings.materialThreshold = newMaterialThreshold;
+
+  saveSettings();
+  renderYarnTable();
+  renderMaterialTable();
+  alert("Thresholds updated!");
+});
+
+// ------------------- Help Modal -------------------
+
 const openBtn = document.getElementById("openModal");
 const closeBtn = document.getElementById("closeModal");
 const modal = document.getElementById("modal");
 
-openBtn.addEventListener("click", () => {
-  modal.classList.add("open");
-});
-closeBtn.addEventListener("click", () => {
-  modal.classList.remove("open");
-});
+openBtn.addEventListener("click", () => modal.classList.add("open"));
+closeBtn.addEventListener("click", () => modal.classList.remove("open"));
 
-// Adding colours
-let colours = [];
-const selectColour = document.getElementById("yarnNeeded");
-const addColourBtn = document.getElementById("addColour");
-const addedColours = document.getElementById("addedColours");
+// ------------------- Products -------------------
 
-addColourBtn.addEventListener("click", () => {
-  const selectedColour = selectColour.options[selectColour.selectedIndex].text;
-  if (selectedColour === "Yarn") {
-    return;
-  }
-  if (colours.includes(selectedColour)) {
-    return;
-  }
-  colours.push(selectedColour);
-  showColours();
-});
-
-function showColours() {
-  addedColours.innerHTML = "";
-
-  colours.forEach((colour, index) => {
-    const span = document.createElement("span");
-
-    span.innerText = colour + "     ✖ ";
-
-    span.addEventListener("click", () => {
-      //removes 1 element FROM position index
-      colours.splice(index, 1);
-      showColours();
-    });
-
-    span.style.cursor = "pointer";
-    addedColours.appendChild(span);
-  });
-}
-
-// ADD PRODUCT
-//saving the products
 function saveProducts() {
   localStorage.setItem("products", JSON.stringify(products));
 }
@@ -61,8 +85,8 @@ function loadProducts() {
   const saved = localStorage.getItem("products");
   if (saved) {
     products = JSON.parse(saved);
-    renderTable();
   }
+  renderTable();
 }
 
 function renderTable() {
@@ -72,19 +96,16 @@ function renderTable() {
   products.forEach((product, index) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-            <td>${product.name}</td>
-            <td>${product.category}</td>
-            <td>${product.colours.join(", ")}</td>
-            <td><button class="editBtn">✎</button></td>
-        `;
-    row
-      .querySelector(".editBtn")
-      .addEventListener("click", () => editProduct(index));
+      <td>${product.name}</td>
+      <td>${product.category}</td>
+      <td>${product.colours.join(", ")}</td>
+      <td><button class="editBtn">✎</button></td>
+    `;
+    row.querySelector(".editBtn").addEventListener("click", () => editProduct(index));
     tableBody.appendChild(row);
   });
 }
 
-//add to table
 function addProduct() {
   const prodName = document.getElementById("productName").value.trim();
   const category = document.getElementById("categoryType").value;
@@ -94,48 +115,32 @@ function addProduct() {
     return;
   }
 
-  //edit mode
   if (editIndex != null) {
-    products[editIndex] = {
-      name: prodName,
-      category: category,
-      colours: [...colours],
-    };
+    products[editIndex] = { name: prodName, category: category, colours: [...colours] };
     saveProducts();
     renderTable();
     exitEditMode();
     return;
   }
 
-  //add mode
-
-  products.push({
-      name: prodName,
-      category: category,
-      colours: [...colours],
-    });
-     saveProducts();
-    renderTable();
-    exitEditMode();
-
-
-  document.getElementById("productName").value = "";
-  document.getElementById("categoryType").value = "Category";
+  products.push({ name: prodName, category: category, colours: [...colours] });
+  saveProducts();
+  renderTable();
+  exitEditMode();
 }
-function editProduct(index){
-    editIndex = index;
-    const product = products[index];
-    document.getElementById("productName").value = product.name;
-    document.getElementById("categoryType").value = product.category;
-    colours = [...product.colours];
 
-    showColours();
-    document.getElementById("addProduct").textContent = "Save";
+function editProduct(index) {
+  editIndex = index;
+  const product = products[index];
+  document.getElementById("productName").value = product.name;
+  document.getElementById("categoryType").value = product.category;
+  colours = [...product.colours];
+  showColours();
+  document.getElementById("addProduct").textContent = "Save";
 }
 
 function exitEditMode() {
   editIndex = null;
-
   document.getElementById("productName").value = "";
   document.getElementById("categoryType").value = "Category";
   colours = [];
@@ -143,290 +148,253 @@ function exitEditMode() {
   document.getElementById("addProduct").textContent = "Add Product";
 }
 
-//edit();
-
-//adding an event listner for typing
 let searchInput = document.getElementById("searchBar");
 searchInput.addEventListener("input", searchProducts);
 
 function searchProducts() {
-  console.log("search running");
   const searchValue = document.getElementById("searchBar").value.toLowerCase();
-
   const rows = document.querySelectorAll("#productTable tbody tr");
-
   rows.forEach((row) => {
     const prodName = row.children[0].textContent.toLowerCase();
-
     row.style.display = prodName.includes(searchValue) ? "" : "none";
   });
 }
-//adding the filter by feature
+
 const selectCategory = document.getElementById("filters");
 selectCategory.addEventListener("change", filterBy);
 
 function filterBy() {
   const category = selectCategory.value;
   const rows = document.querySelectorAll("#productTable tbody tr");
-
   rows.forEach((row) => {
     const categorySelect = row.children[1].textContent;
-
-    if (category === "All" || categorySelect === category) {
-      row.style.display = "";
-    } else {
-      row.style.display = "none";
-    }
+    row.style.display = category === "All" || categorySelect === category ? "" : "none";
   });
 }
 
 loadProducts();
 
-let yarns = [];
-const threshold = 0.5;
+// ------------------- Colours (product form) -------------------
 
- yarns.push({
-  colour: "Wine Red",
-  amount: 0.5
-},
-{
-  colour: "Dark Green",
-  amount: 1
+let colours = [];
+const selectColour = document.getElementById("yarnNeeded");
+const addColourBtn = document.getElementById("addColour");
+const addedColours = document.getElementById("addedColours");
+
+addColourBtn.addEventListener("click", () => {
+  const selectedColour = selectColour.options[selectColour.selectedIndex].text;
+  if (selectedColour === "Yarn" || colours.includes(selectedColour)) return;
+  colours.push(selectedColour);
+  showColours();
 });
- console.log(yarns)
+
+function showColours() {
+  addedColours.innerHTML = "";
+  colours.forEach((colour, index) => {
+    const span = document.createElement("span");
+    span.innerText = colour + "  ✖ ";
+    span.style.cursor = "pointer";
+    span.addEventListener("click", () => {
+      colours.splice(index, 1);
+      showColours();
+    });
+    addedColours.appendChild(span);
+  });
+}
+
+// ------------------- Yarn -------------------
+
+let yarns = [];
+
+function saveYarns() {
+  localStorage.setItem("yarns", JSON.stringify(yarns));
+}
+
+function loadYarns() {
+  const saved = localStorage.getItem("yarns");
+  if (saved) {
+    yarns = JSON.parse(saved);
+  } else {
+    // Only seed default data if nothing is saved yet
+    yarns = [
+      { colour: "Wine Red", amount: 0.5 },
+      { colour: "Dark Green", amount: 1 },
+      { colour: "Purple", amount: 0.5 },
+      { colour: "Pink", amount: 1 },
+    ];
+    saveYarns();
+  }
+  renderYarnTable();
+}
 
 const yarnTableBody = document.getElementById("yarnTableBody");
 
-
- function saveYarns(){
-  localStorage.setItem("yarns", JSON.stringify(yarns));
- }
-
- function loadYarns(){
-  const saved = localStorage.getItem("yarns");
-  if (saved){
-    yarns = JSON.parse(saved);
-  }
-  renderYarnTable();
- }
-
-function renderYarnTable(){
+function renderYarnTable() {
   yarnTableBody.innerHTML = "";
-const select = document.getElementById("yarnNeeded");
-select.innerHTML = '<option value="" disabled selected>Yarn</option>'; 
+  const select = document.getElementById("yarnNeeded");
+  select.innerHTML = '<option value="" disabled selected>Yarn</option>';
+
+  const lowCount = yarns.filter((y) => y.amount <= settings.yarnThreshold).length;
+  const totalAmount = yarns.reduce((s, y) => s + y.amount, 0);
+
+  document.getElementById("yarnStats").innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">Total colours</div>
+      <div class="stat-value">${yarns.length}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Low stock</div>
+      <div class="stat-value ${lowCount > 0 ? "warn" : ""}">${lowCount}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total skeins</div>
+      <div class="stat-value">${totalAmount.toFixed(2)}</div>
+    </div>
+  `;
+
   yarns.forEach((yarn) => {
     const col = document.createElement("option");
     col.textContent = yarn.colour;
     col.value = yarn.colour;
     select.appendChild(col);
-    // Adding the colours to the select
-    
-    
-// Buttons for amount col
-    const minusBtn = document.createElement("button");
-    minusBtn.textContent = "-0.25";
-    minusBtn.style.backgroundColor = "rgba(255, 0, 0, 0.25)";
-    minusBtn.style.border = "0";
-    minusBtn.style.cursor = "pointer";
-    const plusBtn = document.createElement("button");
-    plusBtn.textContent = "+0.25";
-    plusBtn.style.backgroundColor = "rgba(0, 128, 0, 0.25)";
-    plusBtn.style.border = "0";
-   plusBtn.style.cursor = "pointer";
 
-    minusBtn.addEventListener("click", () =>{
-      yarn.amount = Math.max(0, yarn.amount - 0.25).toFixed(2);
-      saveYarns();
-      renderYarnTable();
-    })
+    const isLow = yarn.amount <= settings.yarnThreshold;
+    const barPct = Math.min(100, (yarn.amount / 5) * 100).toFixed(0);
+    const swatch = swatchMap[yarn.colour] || "#888";
 
-    plusBtn.addEventListener("click", () => {
-      yarn.amount = (parseFloat(yarn.amount) + 0.25).toFixed(2);
-      saveYarns();
-      renderYarnTable();
-    })
-    
     const row = document.createElement("tr");
-    const colourCell = document.createElement("td");
-    colourCell.style.width = "300px";
-    const amountCell = document.createElement("td");
-     amountCell.style.width = "300px";
+    row.innerHTML = `
+      <td><span class="colour-swatch" style="background:${swatch}"></span>${yarn.colour}</td>
+      <td>
+        <div class="amount-ctrl">
+          <button class="ctrl-btn minus">−</button>
+          <span class="amount-val">${yarn.amount.toFixed(2)}</span>
+          <button class="ctrl-btn plus">+</button>
+        </div>
+      </td>
+      <td>
+        <div class="bar-wrap">
+          <div class="bar-fill ${isLow ? "bar-low" : "bar-ok"}" style="width:${barPct}%"></div>
+        </div>
+      </td>
+      <td>
+        <span class="badge ${isLow ? "badge-low" : "badge-ok"}">
+          <span class="badge-dot ${isLow ? "dot-low" : "dot-ok"}"></span>
+          ${isLow ? "Low stock" : "OK"}
+        </span>
+      </td>
+    `;
 
-    const amountSpan = document.createElement("span");
-    amountSpan.classList.add("amount");
-    amountSpan.textContent = `${yarn.amount}`;
+    row.querySelectorAll(".ctrl-btn")[0].addEventListener("click", () => {
+      yarn.amount = Math.max(0, yarn.amount - 0.25);
+      saveYarns();
+      renderYarnTable();
+    });
+    row.querySelectorAll(".ctrl-btn")[1].addEventListener("click", () => {
+      yarn.amount += 0.25;
+      saveYarns();
+      renderYarnTable();
+    });
 
-    colourCell.textContent = yarn.colour;
-    amountCell.appendChild(minusBtn);
-    amountCell.appendChild(amountSpan);
-    amountCell.appendChild(plusBtn);
-
-    row.appendChild(colourCell);
-    row.appendChild(amountCell);
-
-    const statusCell = document.createElement("td");
-    if (yarn.amount <= threshold){
-      statusCell.textContent = "Low Stock!";
-      statusCell.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
-      statusCell.style.width = "275px";
-    
-    } else {
-      statusCell.textContent = "Ok";
-      statusCell.style.backgroundColor = "rgba(0, 128, 0, 0.5)";
-      statusCell.style.width = "275px";
-    }
-
-    row.appendChild(statusCell);
     yarnTableBody.appendChild(row);
-
-
   });
-
-}
-function addyarn(colVar, amountVar){
-  yarns.push({colour: colVar, amount: amountVar});
-    saveYarns();        
-  renderYarnTable();  
 }
 
-addyarn("Purple", 0.5);
-addyarn("Pink", 1)
+function addYarn(colVar, amountVar) {
+  yarns.push({ colour: colVar, amount: amountVar });
+  saveYarns();
+  renderYarnTable();
+}
 
-//loadYarns();
+loadYarns();
+
+// ------------------- Materials -------------------
+
 let materials = [];
-let thresholdMaterial = 5;
 
-materials.push({
-  material: "Glue Sticks",
-  amount: 50
-},
-{
-  material: "Skewers",
-  amount: 40
-},
-{
-  material: "Key Rings",
-  amount: 20
-});
+function saveMaterials() {
+  localStorage.setItem("materials", JSON.stringify(materials));
+}
 
-
+function loadMaterials() {
+  const saved = localStorage.getItem("materials");
+  if (saved) {
+    materials = JSON.parse(saved);
+  } else {
+    // Only seed default data if nothing is saved yet
+    materials = [
+      { material: "Glue Sticks", amount: 50 },
+      { material: "Skewers", amount: 40 },
+      { material: "Key Rings", amount: 20 },
+    ];
+    saveMaterials();
+  }
+  renderMaterialTable();
+}
 
 const materialTableBody = document.getElementById("materialTableBody");
-function renderMaterialTable(){
+
+function renderMaterialTable() {
   materialTableBody.innerHTML = "";
 
+  const lowCount = materials.filter((m) => m.amount < settings.materialThreshold).length;
+  const totalAmount = materials.reduce((s, m) => s + m.amount, 0);
+
+  document.getElementById("materialStats").innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">Total materials</div>
+      <div class="stat-value">${materials.length}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Low stock</div>
+      <div class="stat-value ${lowCount > 0 ? "warn" : ""}">${lowCount}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total units</div>
+      <div class="stat-value">${totalAmount}</div>
+    </div>
+  `;
+
   materials.forEach((material) => {
-
-
-    // Buttons
-    const minusBtn = document.createElement("button");
-    minusBtn.textContent = "-1";
-    minusBtn.style.backgroundColor = "rgba(255, 0, 0, 0.25)";
-    minusBtn.style.border = "0";
-    minusBtn.style.cursor = "pointer";
-    const plusBtn = document.createElement("button");
-    plusBtn.textContent = "+1";
-    plusBtn.style.backgroundColor = "rgba(0, 128, 0, 0.25)";
-    plusBtn.style.border = "0";
-   plusBtn.style.cursor = "pointer";
-
-   minusBtn.addEventListener("click", () => {
-    material.amount = Math.max(0, material.amount - 1);
-    renderMaterialTable();
-   });
-
-
-   plusBtn.addEventListener("click", () => {
-    material.amount = material.amount + 1;
-    renderMaterialTable();
-   })
-
- minusBtn.classList.add("btn-minus");
-plusBtn.classList.add("btn-plus");
+    const isLow = material.amount < settings.materialThreshold;
+    const barPct = Math.min(100, (material.amount / 100) * 100).toFixed(0);
 
     const row = document.createElement("tr");
-    const materialCell = document.createElement("td");
-    const amountCell = document.createElement("td");
-    materialCell.textContent = material.material;
-   
+    row.innerHTML = `
+      <td>${material.material}</td>
+      <td>
+        <div class="amount-ctrl">
+          <button class="ctrl-btn minus">−</button>
+          <span class="amount-val">${material.amount}</span>
+          <button class="ctrl-btn plus">+</button>
+        </div>
+      </td>
+      <td>
+        <div class="bar-wrap">
+          <div class="bar-fill ${isLow ? "bar-low" : "bar-ok"}" style="width:${barPct}%"></div>
+        </div>
+      </td>
+      <td>
+        <span class="badge ${isLow ? "badge-low" : "badge-ok"}">
+          <span class="badge-dot ${isLow ? "dot-low" : "dot-ok"}"></span>
+          ${isLow ? "Low stock" : "OK"}
+        </span>
+      </td>
+    `;
 
-      const amountSpan = document.createElement("span");
-      amountSpan.classList.add("amount");
-      amountSpan.textContent = `${material.amount}`;
-      amountCell.appendChild(minusBtn);
-      amountCell.appendChild(amountSpan);
-      amountCell.appendChild(plusBtn);
+    row.querySelectorAll(".ctrl-btn")[0].addEventListener("click", () => {
+      material.amount = Math.max(0, material.amount - 1);
+      saveMaterials();
+      renderMaterialTable();
+    });
+    row.querySelectorAll(".ctrl-btn")[1].addEventListener("click", () => {
+      material.amount += 1;
+      saveMaterials();
+      renderMaterialTable();
+    });
 
-
-    row.appendChild(materialCell);
-    row.appendChild(amountCell);
-       const statusCell = document.createElement("td");
-    if (material.amount < thresholdMaterial){
-      statusCell.textContent = "Low Stock!";
-      statusCell.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
-      statusCell.style.width = "275px";
-    } else {
-      statusCell.textContent = "Ok";
-      statusCell.style.backgroundColor = "rgba(0, 128, 0, 0.5)";
-      statusCell.style.width = "275px";
-    }
-
-    row.appendChild(statusCell);
     materialTableBody.appendChild(row);
-  })
+  });
 }
 
-
-renderMaterialTable();
-
-// -------------------Settings page ------------------
-
-let settings = {
-  theme: "light"
-};
-
-
-function saveSettings(){
-  localStorage.setItem("settings", JSON.stringify(settings));
-}
-
-function loadSettings(){
-  const saved = localStorage.getItem("settings");
-  console.log("RAW FROM STORAGE:", saved);
-  if (saved){
-    settings = JSON.parse(saved);
-  }
-  console.log("AFTER LOAD:", settings);
-}
-
-function applySettings(){
-  document.body.classList.remove("light", "dark");
-  document.body.classList.add(settings.theme);
-}
-
-let toggle = document.getElementById("toggleTheme");
-toggle.addEventListener("change", () => {
-
-  settings.theme = toggle.checked ? "dark" : "light";
-   console.log("SAVING:", settings);
-  applySettings();
-  saveSettings();
-});
-
-loadSettings();
-applySettings();
-
-toggle.checked = settings.theme === "dark";
-
-console.log(settings);
-
-
-
-
-
-
-
-
-
-
-
+loadMaterials();

@@ -9,7 +9,7 @@
   <body>
     <div class="mainContent">
         <!-- HOME -->
-      <section id="home" class="home">Home</section>
+      <!-- <section id="home" class="home">Home</section> -->
 
 
       <!-- PRODUCTS -->
@@ -86,59 +86,44 @@ Enter a name, choose a category, add all required yarn colours, then click Add P
      
 
 
-     <!-- Yarn page -->
-      <section id="yarn" class="yarn">
-        <h2>Yarn Stock</h2>
+    <!-- Yarn page -->
+<section id="yarn" class="yarn">
+  <h2>Yarn Stock</h2>
+  <div class="stats-row" id="yarnStats"></div>
+  <table id="yarnTable">
+    <thead>
+      <tr>
+        <th>Colour</th>
+        <th>Amount</th>
+        <th>Stock Level</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="yarnTableBody"></tbody>
+  </table>
+</section>
 
-        <table id="yarnTable">
-              <thead>
-          <tr>
-            <th>Colours</th>
-            <th>Amount</th>
-            <th>Alert</th>
-          </tr>
-          </thead>
-
-
-          <tbody id="yarnTableBody"></tbody>
-        </table>
-
-      </section>
-
-
-      <!-- Material page -->
-      <section id="materials" class="materials">
-        <h2>
-          Material Stock
-        </h2>
-
-        <table id="materialTable">
-          <thead>
-            <th>Material</th>
-            <th>Amount</th>
-            <th>Alert</th>
-          </thead>
-
-          <tbody id="materialTableBody"></tbody>
-        </table>
-
-      </section>
+<!-- Material page -->
+<section id="materials" class="materials">
+  <h2>Material Stock</h2>
+  <div class="stats-row" id="materialStats"></div>
+  <table id="materialTable">
+    <thead>
+      <tr>
+        <th>Material</th>
+        <th>Amount</th>
+        <th>Stock Level</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="materialTableBody"></tbody>
+  </table>
+</section>
 
 
 
 
 
-
-
-
-      <!-- Settings page -->
-      <section id="settings" class="settings">
-        <h2>Settings</h2>
-
-        <label>
-          <input type="checkbox" id="toggleTheme">
-          Dark Mode</label>
-      </section>
     </div>
      </div>
 
@@ -147,9 +132,9 @@ Enter a name, choose a category, add all required yarn colours, then click Add P
     <div class="navBar">
       <h2 class="heading">@crochetby_dhee</h2>
       <div class="navLinks">
-        <div class="homeButton">
+        <!-- <div class="homeButton">
           <a href="#home"> <h4>Home</h4></a>
-        </div>
+        </div> -->
         <div class="productsButton">
           <a href="#products"> <h4>Products</h4></a>
         </div>
@@ -159,9 +144,9 @@ Enter a name, choose a category, add all required yarn colours, then click Add P
         <div class="materialsButton">
           <a href="#materials"> <h4>Materials</h4></a>
         </div>
-        <div class="settingsButton">
+        <!-- <div class="settingsButton">
           <a href="#settings"> <h4>Settings</h4></a>
-        </div>
+        </div> -->
       </div>
     </div>
 
